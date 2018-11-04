@@ -26,10 +26,10 @@ func NewConn(conn *websocket.Conn) *WSConnect {
 		closeChan: make(chan []byte, 1),
 	}
 
-	// 启动读操作
+	// 启动读协程
 	go wsconn.readWS()
 
-	// 启动写操作
+	// 启动写协程
 	go wsconn.writeWS()
 
 	return wsconn
@@ -57,7 +57,7 @@ func (conn *WSConnect) WriteMessage(data []byte) (err error) {
 	return
 }
 
-// ReadLoop从websocket中读取消息
+// ReadLoop 从websocket中读取消息
 func (conn WSConnect) readWS() {
 
 	for {

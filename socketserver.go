@@ -31,10 +31,12 @@ func wsHandle(w http.ResponseWriter, r *http.Request) {
 	for {
 		data, err := conn.ReadMessage()
 		if err != nil {
+			log.Errorf(logFields, "读取消息失败,error :%v", err)
 			goto ERR
 		}
 		log.Infof(logFields, "接收的消息是 : %s", string(data))
 		if err := conn.WriteMessage(data); err != nil {
+			log.Errorf(logFields, "发送消息失败,error :%v", err)
 			goto ERR
 		}
 	}
